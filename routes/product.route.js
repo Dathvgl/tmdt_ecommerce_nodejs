@@ -66,6 +66,9 @@ router.post("/", upload.array("hinhAnh"), async (req, res) => {
   item.coBan.soLuong = 0;
   item.coBan.ngayNhap = `${yyyy}-${mm}-${dd}`;
 
+  item.coBan.danhGia = 0;
+  item.coBan.tongDanhGia = 0;
+
   const key = nanoid();
 
   images?.forEach((file) => {

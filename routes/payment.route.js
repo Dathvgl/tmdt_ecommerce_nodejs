@@ -68,7 +68,7 @@ router.post("/create-checkout-session", jsonParser, async (req, res) => {
           id: x.id,
         },
       },
-      unit_amount: x.giaGoc - x.giaGoc * x.giamGia,
+      unit_amount: x.giaGoc - (x.giaGoc * x.giamGia) / 100,
     },
     quantity: x.soLuong,
   }));
@@ -88,6 +88,12 @@ router.post("/create-checkout-session", jsonParser, async (req, res) => {
 router.post("/:id", async (req, res) => {
   const { id } = req.params;
 
+  const payment = {
+    chiTiet: {},
+    soLuong: 0,
+    thanhLap: "",
+  };
+
   const date = new Date();
   const dd = String(date.getDate()).padStart(2, "0");
   const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -95,10 +101,12 @@ router.post("/:id", async (req, res) => {
 
   const today = `${yyyy}-${mm}-${dd}`;
 
+  payment.thanhLap = today;
+
   await fs
     .collection(paymentName)
     .doc(id)
-    .create({ thanhLap: today })
+    .create(payment)
     .then((_) => res.sendStatus(201))
     .catch((error) => {
       console.error(error);

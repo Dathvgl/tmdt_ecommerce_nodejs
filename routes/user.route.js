@@ -65,17 +65,10 @@ router.post("/new", jsonParser, async (req, res) => {
     .doc(user.uid)
     .create(item)
     .then(async (_) => {
-      await axios.post(`${node}/payment/${item.id}`).catch((error) => {
-        console.error(error);
-        res.sendStatus(500);
-      });
+      await axios.post(`${node}/payment/${item.id}`);
       await axios
         .post(`${node}/cart/${user.uid}`)
-        .then((_) => res.status(201).send({ item: item }))
-        .catch((error) => {
-          console.error(error);
-          res.sendStatus(500);
-        });
+        .then((_) => res.status(201).send({ item: item }));
     })
     .catch((error) => {
       console.error(error);
