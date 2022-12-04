@@ -128,7 +128,6 @@ router.post("/racmt/:id", jsonParser, async (req, res) => {
     .update({
       danhGia: item?.newRate,
       tongDanhGia: item?.newTotalRate,
-      soLuong: ServerValue.increment(item?.soLuong * -1),
     })
     .catch((error) => {
       console.error(error);
