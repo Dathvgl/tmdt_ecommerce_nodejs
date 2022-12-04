@@ -136,7 +136,7 @@ router.post("/racmt/:id", jsonParser, async (req, res) => {
 
   await rt
     .ref(`${racmtName}/${id}/rated`)
-    .update({ [racmt.rated]: ServerValue.increment(1) })
+    .update({ [racmt.rate]: ServerValue.increment(1) })
     .catch((error) => {
       console.error(error);
       res.sendStatus(500);
