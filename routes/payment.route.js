@@ -201,7 +201,7 @@ router.put("/:id/pay", jsonParser, async (req, res) => {
       promises.push(
         axios.put(`${node}/product/${id}/quantity`, {
           id,
-          quantity: soLuong * -1,
+          quantity: soLuong * 1,
         })
       );
     });
